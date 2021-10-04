@@ -6,11 +6,12 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/rastasi/learn-golang/crud/app/router"
+	"github.com/rastasi/learn-golang/crud/lib/utils"
 )
 
 func main() {
 	r := mux.NewRouter()
-	r.Handle("/albums", router.AlbumRouter())
+	utils.AddRouter(r, "/albums", *router.AlbumRouter())
 	http.Handle("/", r)
 	log.Fatal(http.ListenAndServe(":8000", r))
 }

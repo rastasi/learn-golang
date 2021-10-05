@@ -40,5 +40,6 @@ func Setup() {
 	if err != nil {
 		panic(err)
 	}
+	migrate(db)
 	DB = db
 }

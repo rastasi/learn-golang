@@ -6,12 +6,18 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/rastasi/learn-golang/crud/app/router"
+	"github.com/rastasi/learn-golang/crud/lib/database"
 	"github.com/rastasi/learn-golang/crud/lib/utils"
 )
 
-func main() {
+func startHttpServer() {
 	r := mux.NewRouter()
 	utils.AddRouter(r, "/albums", *router.AlbumRouter())
 	http.Handle("/", r)
 	log.Fatal(http.ListenAndServe(":8000", r))
+}
+
+func main() {
+	database.Setup()
+	startHttpServer()
 }

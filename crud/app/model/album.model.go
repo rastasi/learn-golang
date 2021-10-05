@@ -1,8 +1,17 @@
 package model
 
-type Album struct {
-	ID     string  `json:"id"`
-	Title  string  `json:"title"`
-	Artist string  `json:"artist"`
-	Price  float64 `json:"price"`
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
+
+type AlbumModel struct {
+	ID        uint `gorm:"primaryKey"`
+	Title     string
+	Artist    string
+	Price     float64
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt gorm.DeletedAt `gorm:"index"`
 }

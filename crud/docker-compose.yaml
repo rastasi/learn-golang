@@ -1,0 +1,47 @@
+version: "3.2"
+    
+services:
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    networks:
+      inner:
+        aliases:
+          - mysql
+#  crud:
+#    build:
+#      context: ./crud
+#      dockerfile: Dockerfile.development
+#    volumes:
+#      - ./crud:/app
+#    environment:
+#      DB_NAME: database
+#      DB_USER: user
+#      DB_PASSWORD: password
+#      DB_HOST: mysql
+#      DB_PORT: 3306
+#    ports:
+#      - "8000:8000"
+#    expose:
+#      - "8000"
+#    networks:
+#      inner:
+#        aliases:
+#          - crud
+#    depends_on:
+#      - mysql
+networks:
+  inner: {}
+volumes:
+  db_data: {}

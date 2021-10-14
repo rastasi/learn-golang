@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/rastasi/learn-golang/crud/app/model"
@@ -14,8 +15,28 @@ func GetAlbums(w http.ResponseWriter, r *http.Request) {
 	utils.RespondWithJSON(w, 200, serializer.SerializeAlbums(albums))
 }
 
-func PostAlbums(w http.ResponseWriter, r *http.Request) {
-	var album model.AlbumModel
+type PostAlbumsRequestPayload struct {
+	ID     uint
+	Title  string
+	Artist string
+	Price  float64
+}
 
-	utils.RespondWithJSON(w, 201, serializer.SerializeAlbum(album))
+func PostAlbums(w http.ResponseWriter, r *http.Request) {
+	var body PostAlbumsRequestPayload
+
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	var album model.AlbumModel = model.AlbumModel{
+		Title:  body.Title,
+		Artist: body.Artist,
+		Price:  body.Price,
+	}
+
+	repository.PostAlbums(album)
+
+	utils.RespondWithJSON(w, http.StatusCreated, serializer.SerializeAlbum(album))
 }

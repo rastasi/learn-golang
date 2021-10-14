@@ -7,7 +7,6 @@ import (
 
 func GetAlbums() []model.AlbumModel {
 	var albums []model.AlbumModel
-	// var album model.AlbumModel;
 
 	query := database.DB.Select("album_models.*").Group("album_models.id")
 
@@ -16,4 +15,8 @@ func GetAlbums() []model.AlbumModel {
 	}
 
 	return albums
+}
+
+func PostAlbums(album model.AlbumModel) {
+	database.DB.Create(album)
 }

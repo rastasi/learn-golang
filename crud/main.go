@@ -12,6 +12,7 @@ import (
 
 func startHttpServer() {
 	r := mux.NewRouter()
+	r.StrictSlash(false)
 	utils.AddRouter(r, "/albums", *router.AlbumRouter())
 	http.Handle("/", r)
 	log.Fatal(http.ListenAndServe(":8000", r))

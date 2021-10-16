@@ -2,15 +2,17 @@ package serializer
 
 import "github.com/rastasi/learn-golang/crud/domain/model"
 
-type AlbumSerializer struct {
+type Album struct {
 	ID     uint    `json:"id"`
 	Title  string  `json:"title"`
 	Artist string  `json:"artist"`
 	Price  float64 `json:"price"`
 }
 
-func SerializeAlbum(album model.AlbumModel) AlbumSerializer {
-	return AlbumSerializer{
+type AlbumSerializer struct{}
+
+func (s AlbumSerializer) SerializeAlbum(album model.AlbumModel) Album {
+	return Album{
 		ID:     album.ID,
 		Title:  album.Title,
 		Artist: album.Artist,
@@ -18,10 +20,10 @@ func SerializeAlbum(album model.AlbumModel) AlbumSerializer {
 	}
 }
 
-func SerializeAlbums(albums []model.AlbumModel) []AlbumSerializer {
-	var serialized []AlbumSerializer
+func (s AlbumSerializer) SerializeAlbums(albums []model.AlbumModel) []Album {
+	var serialized []Album
 	for _, album := range albums {
-		serialized = append(serialized, SerializeAlbum(album))
+		serialized = append(serialized, s.SerializeAlbum(album))
 	}
 	return serialized
 }

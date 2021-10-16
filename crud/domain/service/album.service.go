@@ -6,19 +6,21 @@ import (
 	"github.com/rastasi/learn-golang/crud/domain/serializer"
 )
 
-func GetAlbums() []serializer.AlbumSerializer {
-	albums := repository.GetAlbums()
-	return serializer.SerializeAlbums(albums)
-}
-
-type PostAlbumServiceParams struct {
+type AlbumServiceCreateParams struct {
 	ID     uint
 	Title  string
 	Artist string
 	Price  float64
 }
 
-func PostAlbum(body PostAlbumServiceParams) serializer.AlbumSerializer {
+type AlbumService struct{}
+
+func (s AlbumService) Index() []serializer.Album {
+	albums := repository.AlbumRepository{}.All()
+	return serializer.AlbumSerializer{}.SerializeAlbums(albums)
+}
+
+func (s AlbumService) Create(body AlbumServiceCreateParams) serializer.Album {
 
 	var album model.AlbumModel = model.AlbumModel{
 		Title:  body.Title,
@@ -26,7 +28,7 @@ func PostAlbum(body PostAlbumServiceParams) serializer.AlbumSerializer {
 		Price:  body.Price,
 	}
 
-	repository.PostAlbum(album)
+	repository.AlbumRepository{}.Create(album)
 
-	return serializer.SerializeAlbum(album)
+	return serializer.AlbumSerializer{}.SerializeAlbum(album)
 }

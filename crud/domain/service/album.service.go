@@ -13,10 +13,17 @@ type AlbumServiceCreateParams struct {
 	Price  float64
 }
 
-type AlbumService struct{}
+type AlbumServiceInterface interface {
+	Index() []serializer.Album
+	Create(body AlbumServiceCreateParams) serializer.Album
+}
+
+type AlbumService struct {
+	AlbumRepository repository.AlbumRepositoryInterface
+}
 
 func (s AlbumService) Index() []serializer.Album {
-	albums := repository.AlbumRepository{}.All()
+	albums := s.AlbumRepository.All()
 	return serializer.AlbumSerializer{}.SerializeAlbums(albums)
 }
 
@@ -28,7 +35,7 @@ func (s AlbumService) Create(body AlbumServiceCreateParams) serializer.Album {
 		Price:  body.Price,
 	}
 
-	repository.AlbumRepository{}.Create(album)
+	s.AlbumRepository.Create(album)
 
 	return serializer.AlbumSerializer{}.SerializeAlbum(album)
 }

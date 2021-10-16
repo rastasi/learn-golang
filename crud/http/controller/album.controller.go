@@ -8,10 +8,12 @@ import (
 	"github.com/rastasi/learn-golang/crud/lib/utils"
 )
 
-type AlbumController struct{}
+type AlbumController struct {
+	AlbumService service.AlbumServiceInterface
+}
 
 func (c AlbumController) Index(w http.ResponseWriter, r *http.Request) {
-	albums := service.AlbumService{}.Index()
+	albums := c.AlbumService.Index()
 	utils.RespondWithJSON(w, 200, albums)
 }
 
@@ -23,7 +25,7 @@ func (c AlbumController) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	album := service.AlbumService{}.Create(body)
+	album := c.AlbumService.Create(body)
 
 	utils.RespondWithJSON(w, http.StatusCreated, album)
 }

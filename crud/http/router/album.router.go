@@ -2,12 +2,19 @@ package router
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/rastasi/learn-golang/crud/domain/repository"
+	"github.com/rastasi/learn-golang/crud/domain/service"
 	"github.com/rastasi/learn-golang/crud/http/controller"
 )
 
 func AlbumRouter() *mux.Router {
 	r := mux.NewRouter()
-	r.HandleFunc("/", controller.AlbumController{}.Index).Methods("GET")
-	r.HandleFunc("/", controller.AlbumController{}.Create).Methods("POST")
+	c := controller.AlbumController{
+		AlbumService: service.AlbumService{
+			AlbumRepository: repository.AlbumRepository{},
+		},
+	}
+	r.HandleFunc("/", c.Index).Methods("GET")
+	r.HandleFunc("/", c.Create).Methods("POST")
 	return r
 }

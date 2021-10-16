@@ -5,6 +5,11 @@ import (
 	"github.com/rastasi/learn-golang/crud/lib/database"
 )
 
+type AlbumRepositoryInterface interface {
+	All() []model.AlbumModel
+	Create(album model.AlbumModel)
+}
+
 type AlbumRepository struct{}
 
 func (r AlbumRepository) All() []model.AlbumModel {

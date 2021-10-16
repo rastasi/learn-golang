@@ -8,6 +8,11 @@ import (
 	"github.com/rastasi/learn-golang/crud/lib/utils"
 )
 
+type AlbumControllerInterface interface {
+	Index(w http.ResponseWriter, r *http.Request)
+	Create(w http.ResponseWriter, r *http.Request)
+}
+
 type AlbumController struct {
 	AlbumService service.AlbumServiceInterface
 }

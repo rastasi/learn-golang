@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/rastasi/learn-golang/crud/app/model"
+	"github.com/rastasi/learn-golang/crud/domain/model"
 	"github.com/rastasi/learn-golang/crud/lib/database"
 )
 
@@ -17,6 +17,6 @@ func GetAlbums() []model.AlbumModel {
 	return albums
 }
 
-func PostAlbums(album model.AlbumModel) {
+func PostAlbum(album model.AlbumModel) {
 	database.DB.Create(album)
 }

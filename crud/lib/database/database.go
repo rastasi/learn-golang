@@ -10,7 +10,10 @@ import (
 )
 
 func migrate(db *gorm.DB) {
-	db.AutoMigrate(&model.AlbumModel{})
+	db.AutoMigrate(
+		&model.AlbumModel{},
+		&model.ArtistModel{},
+	)
 }
 
 type DbConnectData struct {

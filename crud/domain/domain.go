@@ -7,16 +7,22 @@ import (
 )
 
 type Domain struct {
-	AlbumService service.AlbumService
+	AlbumService  service.AlbumService
+	ArtistService service.ArtistService
 }
 
 func NewDomain() Domain {
-	var AlbumService service.AlbumService = service.AlbumService{
-		AlbumRepository: repository.AlbumRepository{
-			DB: database.Init(),
-		},
-	}
+	DB := database.Init()
 	return Domain{
-		AlbumService: AlbumService,
+		AlbumService: service.AlbumService{
+			AlbumRepository: repository.AlbumRepository{
+				DB: DB,
+			},
+		},
+		ArtistService: service.ArtistService{
+			ArtistRepository: repository.ArtistRepository{
+				DB: DB,
+			},
+		},
 	}
 }

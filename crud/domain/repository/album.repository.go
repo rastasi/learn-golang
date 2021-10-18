@@ -7,7 +7,7 @@ import (
 
 type AlbumRepositoryInterface interface {
 	All() []model.AlbumModel
-	Create(album model.AlbumModel)
+	Create(album *model.AlbumModel)
 }
 
 type AlbumRepository struct {
@@ -26,6 +26,6 @@ func (r AlbumRepository) All() []model.AlbumModel {
 	return albums
 }
 
-func (r AlbumRepository) Create(album model.AlbumModel) {
+func (r AlbumRepository) Create(album *model.AlbumModel) {
 	r.DB.Create(album)
 }

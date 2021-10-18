@@ -35,7 +35,7 @@ func (s AlbumService) Create(body AlbumServiceCreateParams) serializer.Album {
 		Price:  body.Price,
 	}
 
-	s.AlbumRepository.Create(album)
+	s.AlbumRepository.Create(&album)
 
 	return serializer.AlbumSerializer{}.SerializeAlbum(album)
 }

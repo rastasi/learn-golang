@@ -19,6 +19,11 @@ func StartHttpServer(domain domain.Domain) {
 			AlbumService: domain.AlbumService,
 		},
 	}.Init())
+	utils.AddRouter(r, "/artists", *router.ArtistRouter{
+		ArtistController: controller.ArtistController{
+			ArtistService: domain.ArtistService,
+		},
+	}.Init())
 	http.Handle("/", r)
 	log.Fatal(http.ListenAndServe(":8000", r))
 }

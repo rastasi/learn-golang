@@ -9,8 +9,6 @@ import (
 	"gorm.io/gorm"
 )
 
-var DB *gorm.DB
-
 func migrate(db *gorm.DB) {
 	db.AutoMigrate(&model.AlbumModel{})
 }
@@ -33,7 +31,7 @@ func getDbConnectData() DbConnectData {
 	}
 }
 
-func Setup() {
+func Init() *gorm.DB {
 	c := getDbConnectData()
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", c.User, c.Password, c.Host, c.Port, c.Database)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
@@ -41,5 +39,5 @@ func Setup() {
 		panic(err)
 	}
 	migrate(db)
-	DB = db
+	return db
 }

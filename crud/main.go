@@ -1,11 +1,11 @@
 package main
 
 import (
+	"github.com/rastasi/learn-golang/crud/domain"
 	"github.com/rastasi/learn-golang/crud/http"
-	"github.com/rastasi/learn-golang/crud/lib/database"
 )
 
 func main() {
-	database.Setup()
-	http.StartHttpServer()
+	domain := domain.NewDomain()
+	http.StartHttpServer(domain)
 }

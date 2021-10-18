@@ -11,7 +11,7 @@ import (
 	"github.com/rastasi/learn-golang/crud/lib/utils"
 )
 
-func StartHttpServer() {
+func StartHttpServer(domain domain.Domain) {
 	r := mux.NewRouter()
 	r.StrictSlash(false)
 	utils.AddRouter(r, "/albums", *router.AlbumRouter{

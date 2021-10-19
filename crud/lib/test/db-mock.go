@@ -5,7 +5,7 @@ import (
 
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/rastasi/learn-golang/crud/domain/model"
-	"gorm.io/driver/postgres"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
@@ -28,11 +28,12 @@ func NewDBMockSuite() *DBMockSuite {
 		panic("SQL Mock error")
 	}
 
-	gormdb, err = gorm.Open(postgres.New(postgres.Config{
-		DSN:                  "sqlmock_db_0",
-		DriverName:           "postgres",
-		Conn:                 db,
-		PreferSimpleProtocol: true,
+	mock.ExpectQuery("SELECT VERSION()").WithArgs().WillReturnRows(sqlmock.NewRows([]string{"exists"}).AddRow(true))
+
+	gormdb, err = gorm.Open(mysql.New(mysql.Config{
+		DSN:        "sqlmock_db_0",
+		DriverName: "mysql",
+		Conn:       db,
 	}), &gorm.Config{})
 
 	if err != nil {

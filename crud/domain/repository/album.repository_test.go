@@ -11,7 +11,7 @@ import (
 func TestAlbumRepositoryCreate(t *testing.T) {
 	suite := test.NewDBMockSuite()
 	existsRows := sqlmock.NewRows([]string{"exists"}).AddRow(true)
-	suite.Mock.ExpectQuery("SELECT album_models.* FROM \"album_models\" WHERE \"album_models\".\"deleted_at\" IS NULL").
+	suite.Mock.ExpectQuery("SELECT album_models.* FROM `album_models` WHERE `album_models`.`deleted_at` IS NULL").
 		WillReturnRows(existsRows)
 	repo := repository.AlbumRepository{DB: suite.DB}
 	repo.All()

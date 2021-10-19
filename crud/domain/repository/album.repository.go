@@ -17,7 +17,7 @@ type AlbumRepository struct {
 func (r AlbumRepository) All() []model.AlbumModel {
 	var albums []model.AlbumModel
 
-	query := r.DB.Select("album_models.*").Group("album_models.id")
+	query := r.DB.Select("album_models.*")
 
 	if err := query.Find(&albums).Error; err != nil {
 		panic(err)

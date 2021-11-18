@@ -14,10 +14,13 @@ type PersonResponse struct {
 func (s PersonSerializer) Serialize(person model.Person) PersonResponse {
 	var gender string
 
-	if person.Gender == 1 {
+	switch person.Gender {
+	case 1:
 		gender = "male"
-	} else {
+	case 2:
 		gender = "female"
+	case 3:
+		gender = "dolphin"
 	}
 
 	return PersonResponse{
